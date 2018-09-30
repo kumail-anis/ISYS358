@@ -22,7 +22,7 @@ public class test {
 			String fileName = "test.txt";
 			
 			System.out.println("Extraction Completed");
-			
+			//this is to write the text file for which the later codes will use for extraction
 			PrintWriter outputStream = new PrintWriter(fileName);
 			outputStream.println(result);
 			outputStream.flush();
@@ -58,38 +58,28 @@ public class test {
 							int posEnd = line.substring(posAmount).indexOf(",");
 							if(posEnd > 0) {
 							System.out.println(line.substring(posAmount,posAmount + posEnd));
+							//this is to print out the csv file, will improve this later
 							try(FileWriter fw = new FileWriter("test12.csv", true);
 									BufferedWriter bw = new BufferedWriter(fw);
 									PrintWriter out = new PrintWriter(bw))
 							{
-								out.println(line.substring(posAmount,posAmount + posEnd)+ ",");}
-							/*String csvfile = "test12.txt";
-							PrintWriter pwrite = new PrintWriter(csvfile);
-							pwrite.println(line.substring(posAmount,posAmount + posEnd));
-							pwrite.flush();
-							pwrite.close();*/
+								out.println(",," +line.substring(posAmount,posAmount + posEnd)+ ","+page);}
+		
 							}
 							else{
 								System.out.println(line.substring(posAmount));
+								//this is to print csv file, will improve later
 								try(FileWriter fw = new FileWriter("test12.csv", true);
 										BufferedWriter bw = new BufferedWriter(fw);
 										PrintWriter out = new PrintWriter(bw))
 								{
-									out.println(line.substring(posAmount)+ ",");}
-								/*String csvfile = "test12.txt";
-								PrintWriter pwrite = new PrintWriter(csvfile);
-								pwrite.println(line.substring(posAmount));
-								pwrite.flush();
-								pwrite.close();*/
+									out.println(",,"+ line.substring(posAmount)+ ","+page);}
+
 								}
 						
 						}
 						System.out.println("Search word '" + searchword + "' found at position " + posFound + " on line " + LineCount + "page number: " + page);
 						System.out.println(line.substring(posFound)); 
-						//String csvfile = "test12.txt";
-						//PrintWriter pwrite = new PrintWriter(csvfile);
-						//pwrite.println(line.substring(posAmount));
-						//pwrite.close();
 
 						}	
 					}

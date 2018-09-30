@@ -33,7 +33,7 @@ public class searchfile {
 									BufferedWriter bw = new BufferedWriter(fw);
 									PrintWriter out = new PrintWriter(bw))
 							{
-								out.println(",," +line.substring(posAmount,posAmount + posEnd)+ ",");}
+								out.println(",," +line.substring(posAmount,posAmount + posEnd)+ ","+page);}
 							/*String csvfile = "test12.txt";
 							PrintWriter pwrite = new PrintWriter(csvfile);
 							pwrite.println(line.substring(posAmount,posAmount + posEnd));
@@ -46,7 +46,7 @@ public class searchfile {
 										BufferedWriter bw = new BufferedWriter(fw);
 										PrintWriter out = new PrintWriter(bw))
 								{
-									out.println(",,"+ line.substring(posAmount)+ ",");}
+									out.println(",,"+ line.substring(posAmount)+ ","+page);}
 								/*String csvfile = "test12.txt";
 								PrintWriter pwrite = new PrintWriter(csvfile);
 								pwrite.println(line.substring(posAmount));
@@ -64,7 +64,7 @@ public class searchfile {
 
 					}	
 				}
-				//bReader.close();
+				breader.close();
 				LineCount = 0;
 			}
 			catch (IOException e) {
