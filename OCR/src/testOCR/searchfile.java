@@ -1,40 +1,11 @@
 package testOCR;
-
 import java.io.*;
-import net.sourceforge.tess4j.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class test {
-	public static void main(String[] args) throws IOException{
-		//creating file instance and referencing the file in its location
-		File imageFile = new File("H:\\eclipse-workspace\\OCR\\images\\arrears.pdf");
-		
-		//creating a new tesseract instance and setting the data path that references trained data and the English Language Library
-		ITesseract instance = new Tesseract();
-		instance.setDatapath("H:\\eclipse-workspace\\OCR\\tessdata");
-		
-		
-		
-		//create a try catch to run the OCR on the document referenced above
-		try {
-			String result = instance.doOCR(imageFile);
-			result = result.replaceAll(",", "");
-			result = result.replaceAll("[ ]", ",");
-			String fileName = "test.txt";
-			
-			System.out.println("Extraction Completed");
-			
-			PrintWriter outputStream = new PrintWriter(fileName);
-			outputStream.println(result);
-			outputStream.flush();
-			outputStream.close();
-			
-			
-		
-			//catch that delivers an error message if OCR fails
-		} catch (TesseractException e) {
-			System.err.println(e.getMessage());
-		}
-		String[] keywords = {"Mr" , "Arrear", "Dishonour"};
+public class searchfile {
+	public static void main(String args[]) {
+	String[] keywords = {"Mr" , "Arrear", "Dishonour"};
 		
 		for (int j = 0; j < keywords.length; j++) {
 			
@@ -58,11 +29,11 @@ public class test {
 							int posEnd = line.substring(posAmount).indexOf(",");
 							if(posEnd > 0) {
 							System.out.println(line.substring(posAmount,posAmount + posEnd));
-							try(FileWriter fw = new FileWriter("test12.csv", true);
+							try(FileWriter fw = new FileWriter("test13.csv", true);
 									BufferedWriter bw = new BufferedWriter(fw);
 									PrintWriter out = new PrintWriter(bw))
 							{
-								out.println(line.substring(posAmount,posAmount + posEnd)+ ",");}
+								out.println(",," +line.substring(posAmount,posAmount + posEnd)+ ",");}
 							/*String csvfile = "test12.txt";
 							PrintWriter pwrite = new PrintWriter(csvfile);
 							pwrite.println(line.substring(posAmount,posAmount + posEnd));
@@ -71,11 +42,11 @@ public class test {
 							}
 							else{
 								System.out.println(line.substring(posAmount));
-								try(FileWriter fw = new FileWriter("test12.csv", true);
+								try(FileWriter fw = new FileWriter("test13.csv", true);
 										BufferedWriter bw = new BufferedWriter(fw);
 										PrintWriter out = new PrintWriter(bw))
 								{
-									out.println(line.substring(posAmount)+ ",");}
+									out.println(",,"+ line.substring(posAmount)+ ",");}
 								/*String csvfile = "test12.txt";
 								PrintWriter pwrite = new PrintWriter(csvfile);
 								pwrite.println(line.substring(posAmount));
@@ -91,18 +62,20 @@ public class test {
 						//pwrite.println(line.substring(posAmount));
 						//pwrite.close();
 
-						}	
-					}
-				breader.close();
-				LineCount = 0;
-			
+					}	
 				}
-		catch (IOException e) {
-			// We encountered an error with the file, print it to the user.
-			System.out.println("Error: " + e.toString());
+				//bReader.close();
+				LineCount = 0;
+			}
+			catch (IOException e) {
+				// We encountered an error with the file, print it to the user.
+				System.out.println("Error: " + e.toString());
 			}
 		}
+//		else {
+//			// They obviously didn't provide a search term when starting the program.
+//			System.out.println("Please provide a word to search the file for.");
+//		}
 	}
+
 }
-		
-	

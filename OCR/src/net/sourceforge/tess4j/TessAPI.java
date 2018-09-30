@@ -822,7 +822,7 @@ public interface TessAPI extends Library, ITessAPI {
      * by -1
      */
     IntByReference TessBaseAPIAllWordConfidences(TessBaseAPI handle);
-
+    
     /**
      * Applies the given word to the adaptive classifier if possible. The word
      * must be SPACE-DELIMITED UTF-8 - l i k e t h i s , so it can tell the
