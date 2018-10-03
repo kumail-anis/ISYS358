@@ -1,81 +1,49 @@
 package testOCR;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class searchfile {
-	public static void main(String args[]) {
-	String[] keywords = {"Mr" , "Arrear", "Dishonour"};
+//this is the RunRTS that lewis showed us. This is from line 16 down. I am again unsure of what was above these lines.
+//There may be some small errors with curly braces but this is more or less exactly what he had.
+
+public static void RunRTS(String fileDir) throws IOException {
+
+	DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	System.out.println("Start time: "+df.format(new Date()));
+	
+	String renderOpt = "1";
+	
+	String outputDir = csvWriter.folderCreate();
+	File outputCSV = csvWriter.csvCreate(outputDir);
+	
+	File[] files = null;
+	
+	if (renderOpt == "1") {
+		files = imageRender.pdfUtilities(fileDir, files);
 		
-		for (int j = 0; j < keywords.length; j++) {
-			
-			String searchword = keywords[j];
-			try {
-				int LineCount = 0;
-				int page = 1;
-				String line = "";
-				BufferedReader breader = new BufferedReader(new FileReader("H:\\eclipse-workspace\\OCR\\test.txt"));
-				
-				while ((line = breader.readLine()) != null) {
-					if(line.contains("sincerely")) {
-						page++;
-									}
-					int posFound = line.indexOf(searchword);
-					LineCount++;
-					
-					if (posFound > - 1) {
-						if (line.contains("$")) {
-							int posAmount = line.indexOf("$");
-							int posEnd = line.substring(posAmount).indexOf(",");
-							if(posEnd > 0) {
-							System.out.println(line.substring(posAmount,posAmount + posEnd));
-							try(FileWriter fw = new FileWriter("test13.csv", true);
-									BufferedWriter bw = new BufferedWriter(fw);
-									PrintWriter out = new PrintWriter(bw))
-							{
-								out.println(",," +line.substring(posAmount,posAmount + posEnd)+ ","+page);}
-							/*String csvfile = "test12.txt";
-							PrintWriter pwrite = new PrintWriter(csvfile);
-							pwrite.println(line.substring(posAmount,posAmount + posEnd));
-							pwrite.flush();
-							pwrite.close();*/
-							}
-							else{
-								System.out.println(line.substring(posAmount));
-								try(FileWriter fw = new FileWriter("test13.csv", true);
-										BufferedWriter bw = new BufferedWriter(fw);
-										PrintWriter out = new PrintWriter(bw))
-								{
-									out.println(",,"+ line.substring(posAmount)+ ","+page);}
-								/*String csvfile = "test12.txt";
-								PrintWriter pwrite = new PrintWriter(csvfile);
-								pwrite.println(line.substring(posAmount));
-								pwrite.flush();
-								pwrite.close();*/
-								}
-						
-						}
-						System.out.println("Search word '" + searchword + "' found at position " + posFound + " on line " + LineCount + "page number: " + page);
-						System.out.println(line.substring(posFound)); 
-						//String csvfile = "test12.txt";
-						//PrintWriter pwrite = new PrintWriter(csvfile);
-						//pwrite.println(line.substring(posAmount));
-						//pwrite.close();
-
-					}	
-				}
-				breader.close();
-				LineCount = 0;
-			}
-			catch (IOException e) {
-				// We encountered an error with the file, print it to the user.
-				System.out.println("Error: " + e.toString());
-			}
+		for (File file :files) {
+			runOCR(file, outputDir, outputCSV, renderOpt);
 		}
-//		else {
-//			// They obviously didn't provide a search term when starting the program.
-//			System.out.println("Please provide a word to search the file for.");
-//		}
+	
+	
+System.out.println("End time: "+df.format(new Date()));
 	}
-
 }
+
+
+public static void runOCR(File file, String outputDir, File outputCSV, String renderOpt) throws IOException{
+	String result = null;
+	int counter = 0;
+	
+	ITesseract instance = new Tesseract();
+	instance.setDatapath("C:\\Users\\KUMAIL\\ISYS358\\OCR\\tessdata");
+	//we need to set this ourselves depending on the computer
+	System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
+	}
+}	
+
+	
+	
